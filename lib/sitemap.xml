@@ -22,7 +22,7 @@
   {% for collection in site.collections %}{% unless collection.last.output == false or collection.output == false or collection.label == 'posts' %}
   {% for doc in collection.last.docs %}{% unless doc.sitemap == false %}
   <url>
-    <loc>{{ doc.url | replace:'/index.html','/' | prepend: site_url | normalize_url }}</loc>
+    <loc>{{ doc.url | replace:'/index.html','/' | prepend: site_url | normalize_url | xml_escape }}</loc>
     {% if doc.last_modified_at %}
     <lastmod>{{ doc.last_modified_at | date_to_xmlschema }}</lastmod>
     {% endif %}
@@ -30,7 +30,7 @@
   {% endunless %}{% endfor %}
   {% for doc in collection.docs %}{% unless doc.sitemap == false %}
     <url>
-      <loc>{{ doc.url | replace:'/index.html','/' | prepend: site_url | normalize_url }}</loc>
+      <loc>{{ doc.url | replace:'/index.html','/' | prepend: site_url | normalize_url | xml_escape }}</loc>
       {% if doc.last_modified_at %}
       <lastmod>{{ doc.last_modified_at | date_to_xmlschema }}</lastmod>
       {% endif %}
@@ -39,7 +39,7 @@
   {% endunless %}{% endfor %}
   {% for file in page.static_files %}
   <url>
-    <loc>{{ file.path | prepend: site_url | normalize_url }}</loc>
+    <loc>{{ file.path | prepend: site_url | normalize_url | xml_escape }}</loc>
     <lastmod>{{ file.modified_time | date_to_xmlschema }}</lastmod>
   </url>
   {% endfor %}
